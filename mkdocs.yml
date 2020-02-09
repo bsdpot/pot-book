@@ -1,11 +1,10 @@
 site_name: pot
-theme: windmill-dark
 extra:
     logo: img/pot-red.svg
 nav:
     - Home: index.md
-    - Installation: Installation.md
     - QuickStart: QuickStart.md
+    - Installation: Installation.md
     - Images: Images.md
 
 site_name: 'pot'
