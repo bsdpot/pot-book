@@ -1,0 +1,44 @@
+site_name: pot
+theme: windmill-dark
+extra:
+    logo: img/pot-red.svg
+nav:
+    - Home: index.md
+    - Installation: Installation.md
+    - QuickStart: QuickStart.md
+    - Images: Images.md
+
+site_name: 'pot'
+site_url: 'https://pot.pizzamig.dev/'
+site_description: 'Another jail framework aiming to improve container-based workflows'
+site_author: 'Luca Pizzamiglio'
+repo_name: 'pizzamig/pot/'
+repo_url: 'https://github.com/pizzamig/pot/'
+edit_uri: ''
+theme:
+  name: 'material'
+  feature:
+    tabs: true
+  palette:
+    primary: 'red'
+    accent: 'red'
+  logo: pot-red.svg
+  font: false
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/pizzamig'
+    - type: 'twitter'
+      link: 'https://twitter.com/pizzamig'
+    - type: 'linkedin'
+      link: 'https://www.linkedin.com/in/pizzamiglio'
+markdown_extensions:
+    - admonition
+    - toc:
+        permalink: true
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  - git-revision-date-localized:
+      type: timeago

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.7 -->
+
+<!-- CreationDate: 2020-02-04 22:17:44 -->
+
+<!-- Magnification: 1 -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="299pt"
+   height="128pt"
+   viewBox="2688 438 4974 2124"
+   version="1.1"
+   id="svg49"
+   sodipodi:docname="pot-red.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata55">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs53" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1916"
+     inkscape:window-height="1041"
+     id="namedview51"
+     showgrid="false"
+     inkscape:zoom="2.0016722"
+     inkscape:cx="199.33333"
+     inkscape:cy="85.333333"
+     inkscape:window-x="3840"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg49" />
+  <g
+     fill="none"
+     id="g47">
+    <!-- Line -->
+    <polyline
+       points=" 7350,750 7350,1050 7200,1200 7050,1050 7350,750"
+       fill="#000000"
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline29" />
+    <!-- Line -->
+    <polyline
+       points=" 4050,900 4050,1200 3600,1650 3450,1500 4050,900"
+       fill="#000000"
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline31" />
+    <!-- Line -->
+    <polyline
+       points=" 3300,1350 3150,1200 3600,750 3750,900 3300,1350"
+       fill="#000000"
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline33" />
+    <!-- Line -->
+    <polyline
+       points=" 2700,1350 2700,1650 3600,2550 3900,2250 3900,1950 3600,2250  2700,1350"
+       fill="#000000"
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline35" />
+    <!-- Line -->
+    <polyline
+       points=" 4200,1350 5100,450 6000,1350 5100,2250 4200,1350"
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline37" />
+    <!-- Line -->
+    <polyline
+       points=" 4200,1350 4200,1650 5100,2550 6000,1650 6000,1350 5100,2250  4200,1350"
+       fill="#000000"
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline39" />
+    <!-- Line -->
+    <polyline
+       points=" 6150,1350 7050,450 7350,750 7050,1050 7650,1650 7350,1950 6750,1350  6450,1650 6150,1350"
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline41" />
+    <!-- Line -->
+    <polyline
+       points=" 6150,1350 6150,1650 6450,1950 6750,1650 7350,2250 7650,1950  7650,1650 7350,1950 6750,1350 6450,1650 6150,1350"
+       fill="#000000"
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline43" />
+    <!-- Line -->
+    <polyline
+       points=" 2700,1350 3600,2250 3900,1950 3450,1500 4050,900 3600,450 2700,1350 "
+       stroke="#000000"
+       stroke-width="8px"
+       id="polyline45" />
+  </g>
+  <path
+     style="fill:none;stroke-width:0.49958229"
+     d="M 37.392413,108.78742 1.7984798,73.190871 37.395693,37.596271 72.992908,2.0016683 90.600886,19.61489 108.20887,37.228112 84.229533,61.203544 60.250197,85.178978 78.356449,103.29032 96.462695,121.40167 84.979696,132.89281 c -6.315649,6.32013 -11.597828,11.49115 -11.738176,11.49115 -0.140347,0 -16.272444,-16.01845 -35.849107,-35.59654 z M 79.361294,30.856263 72.998678,24.479495 54.636376,42.836766 36.274078,61.194037 l 6.362613,6.376768 6.362613,6.376768 18.362303,-18.357271 18.362297,-18.357271 z"
+     id="path152"
+     inkscape:connector-curvature="0"
+     transform="matrix(12.476589,0,0,12.476589,2688,435.33104)" />
+  <path
+     style="fill:#aa0000;stroke-width:0.49958229"
+     d="M 37.392413,108.78742 1.7984798,73.190871 37.395693,37.596271 72.992908,2.0016683 90.600886,19.61489 108.20887,37.228112 84.229533,61.203544 60.250197,85.178978 78.356449,103.29032 96.462695,121.40167 84.979696,132.89281 c -6.315649,6.32013 -11.597828,11.49115 -11.738176,11.49115 -0.140347,0 -16.272444,-16.01845 -35.849107,-35.59654 z M 79.361294,30.856263 72.998678,24.479495 54.636376,42.836766 36.274078,61.194037 l 6.362613,6.376768 6.362613,6.376768 18.362303,-18.357271 18.362297,-18.357271 z"
+     id="path183"
+     inkscape:connector-curvature="0"
+     transform="matrix(12.476589,0,0,12.476589,2688,435.33104)" />
+  <path
+     style="fill:#aa0000;stroke-width:0.49958229"
+     d="M 157.41837,108.91361 121.95066,73.443265 157.66818,37.723132 193.38569,2.0029971 228.98224,37.596935 264.57879,73.190871 228.98485,108.78742 c -19.57666,19.57809 -35.70752,35.59654 -35.84635,35.59654 -0.13883,0 -16.21289,-15.96165 -35.72013,-35.47035 z"
+     id="path185"
+     inkscape:connector-curvature="0"
+     transform="matrix(12.476589,0,0,12.476589,2688,435.33104)" />
+  <path
+     style="fill:#aa0000;stroke-width:0.49958229"
+     d="M 349.75876,96.425265 325.78331,72.445909 313.66435,84.557298 301.54539,96.668686 289.93267,85.055966 278.31994,73.44324 314.03615,37.724421 349.75234,2.0055996 l 11.61802,11.6101244 11.61802,11.610125 -12.11211,12.119674 -12.1121,12.119675 23.97542,23.979316 23.97541,23.979321 -11.49039,11.490395 -11.49039,11.49039 z"
+     id="path187"
+     inkscape:connector-curvature="0"
+     transform="matrix(12.476589,0,0,12.476589,2688,435.33104)" />
+</svg>
