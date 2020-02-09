@@ -4,32 +4,37 @@ This is an introduction at the usage of `pot`, a `jail(8)` wrapper based on ZFS 
 
 `pot` uses FreeBSD specific technologies, so you need a FreeBSD machine to run it.
 
-**NOTE**: 99% of the operations needs `root` privileges. In this guide, we consider to be logged in as `root`
+!!! note
+    99% of the operations needs `root` privileges. In this guide, we consider to be logged in as `root`
 
-**NOTE2**: ZFS is mandatory, so if you don't know what it is or you don't have a ZFS pool, please consider to read this [quick guide](https://www.freebsd.org/doc/handbook/zfs-quickstart.html).
+!!! note "Note 2"
+    ZFS is mandatory, so if you don't know what it is or you don't have a ZFS pool, please consider to read this [quick guide](https://www.freebsd.org/doc/handbook/zfs-quickstart.html).
 
-**NOTE3**: Some features, like memory limits and memory usage, rely on the resources limit framework, normally disabled. Even if it's not mandatory, it's suggested to enable it, with the following steps:
-```console
-# echo kern.racct.enable=1 >> /boot/loader.conf
-```
-This settings will take effect at the next reboot.
+!!! note "Note 3"
+    Some features, like memory limits and memory usage, rely on the resources limit framework, normally disabled. 
+	Even if it's not mandatory, it's suggested to enable it, with the following steps:
+    ```console
+    # echo kern.racct.enable=1 >> /boot/loader.conf
+    ```
+    This settings will take effect at the next reboot.
 
-**NOTE4**: One of the 3 network configuration need `VNET(9)`, the network subsystem virtualization infrastructure, enabled in the kernel.
-On FreeBSD 12 and later, this kernel feature is already enabled and you don't need to do anything.
-On FreeBSD 11.x, you have to rebuild the kernel, enabling the VIMAGE options, following the instruction reported [here](https://www.freebsd.org/doc/handbook/kernelconfig.html)
+!!! note "Note 4"
+    One of the 3 network configuration need `VNET(9)`, the network subsystem virtualization infrastructure, enabled in the kernel.  
+    On FreeBSD 12 and later, this kernel feature is already enabled and you don't need to do anything.  
+    On FreeBSD 11.x, you have to rebuild the kernel, enabling the VIMAGE options, following the instruction reported [here](https://www.freebsd.org/doc/handbook/kernelconfig.html)
 ## Install `pot`
 The installation process is pretty straightforward:
 ```console
 # pkg install -y pot
 ```
 That's it, `pot` and its dependencies are installed, but we're not yet ready.
-#### Configuration [Optional]
+### Configuration
 Under the folder `/usr/local/etc/pot` you'll find two files:
+
 * `pot.default.conf`
 * `pot.conf`
 
-The `pot.default.conf` contains all the default values and it shouldn't be touched.
-
+The `pot.default.conf` contains all the default values and it shouldn't be touched.  
 All needed changes have to be stored in the `pot.conf` file. Please take your time to give a look to this file and to change configuration accordingly to your system
 
 ### Initialization
@@ -43,8 +48,9 @@ We can now create the simplest `pot`
 ```console
 # pot create -p mypot -t single -b 11.3
 ```
-**NOTE** The FreeBSD machine doesn't have to be the same version of your `pot` (jail). However, the hosting machine's version has to be greater or equal than the `pot`'s one.
-For instance, you can run a FreeBSD 10.4 `pot` on a FreeBSD 11.3 host. You **cannot** run a FreeBSD 12 `pot` on a FreeBSD 11.3 host.
+!!! note
+    The FreeBSD machine doesn't have to be the same version of your `pot` (jail). However, the hosting machine's version has to be greater or equal than the `pot`'s one.  
+    For instance, you can run a FreeBSD 10.4 `pot` on a FreeBSD 11.3 host. You **cannot** run a FreeBSD 12 `pot` on a FreeBSD 11.3 host.
 
 So, we created a `pot`, named `mypot`, based on FreeBSD 11.3 consisting of one ZFS dataset.
 
@@ -94,6 +100,7 @@ pot name : mypot
 		prunable: NO
 ```
 Some explanation of this output:
+
 * `type`: currently two types of `pot` are supported: `single`, based on one ZFS dataset, and `multi`, based on multiple ZFS dataset.
 * `base`: the FreeBSD version used to build this `pot`.
 * `level`: for single type `pot` the level is always `0`. Levels are explained for the multi type `pot`.

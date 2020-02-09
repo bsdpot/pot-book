@@ -18,9 +18,9 @@ edit_uri: ''
 theme:
   name: 'material'
   feature:
-    tabs: true
+    tabs: false
   palette:
-    primary: 'red'
+    primary: 'teal'
     accent: 'red'
   logo: pot-red.svg
   font: false
@@ -36,6 +36,7 @@ markdown_extensions:
     - admonition
     - toc:
         permalink: true
+    - pymdownx.superfences
 plugins:
   - search
   - minify:
