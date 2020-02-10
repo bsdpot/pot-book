@@ -1,6 +1,4 @@
 site_name: pot
-extra:
-    logo: img/pot-red.svg
 nav:
     - Home: index.md
     - QuickStart: QuickStart.md
@@ -23,6 +21,7 @@ theme:
     accent: 'red'
   logo: pot-red.svg
   font: false
+  favicon: pot-red.svg
 extra:
   social:
     - type: 'github'
