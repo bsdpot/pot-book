@@ -1,7 +1,7 @@
 site_name: pot
 nav:
     - Home: index.md
-    - Getting started: QuickStart.md
+    - Getting started: Getting.md
     - Full installation guide: Installation.md
     - Container model:
         - QuickStart: QuickStart.md
