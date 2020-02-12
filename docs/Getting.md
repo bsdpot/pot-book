@@ -6,20 +6,19 @@ For this guide, we assume that you have a FreeBSD 12+ machine, with a ZFS pool a
     ZFS is mandatory, so if you don't know what it is or you don't have a ZFS pool, please consider to read this [quick guide](https://www.freebsd.org/doc/handbook/zfs-quickstart.html).
 
 ## Install `pot`
-`pot` is available as package or port.
-
-The suggested way is to install it using the packages:
+`pot` is available as package or port. The suggested way is to install it using the packages:
 ```console
 # pkg install -y pot
 ```
+
 ## Enable the resource accounting
-The resource accounting, even if not mandatory for `pot` to run, is a suggested FreeBSD feature that can be used.
-This feature is still disabled by default on FreeBSD 12.x ,and it can be enabled only at boot time.
+The resource accounting, even if not mandatory for `pot` to run, is a suggested FreeBSD feature that can be used. This feature is still disabled by default on FreeBSD 12.x, and it can be enabled only at boot time.  
 To do so:
 ```console
 # echo kern.racct.enable=1 >> /boot/loader.conf
 # reboot
 ```
+
 !!! note
     This settings will take effect ONLY after the next reboot.
 
@@ -36,12 +35,13 @@ This settings will also take effect ONLY at the next reboot.
 Under the folder `/usr/local/etc/pot` you'll find the files `pot.conf`.  
 The file configuration file has comments to with default values and explanations.
 
-However,  it's important to check if few defaults are compatible with your system: 
-* `POT_ZFS_ROOT` : the name of the the dataset where to put all `pot`s (it will be created later)
-* `POT_FS_ROOT` : the mountpoint fo the `POT_ZFS_ROOT`
-* `POT_EXTIF` : the network interface
-* `POT_NETWORK` : the IPv4 network that will be used for internal communication only (it must not overlap with your network setup)
-* `POT_GATEWAY` : an address consistent with the internal IPv4 network 
+However,  it's important to check if few defaults are compatible with your system:
+
+- `POT_ZFS_ROOT` : the name of the the dataset where to put all `pot`s (it will be created later)
+- `POT_FS_ROOT` : the mountpoint fo the `POT_ZFS_ROOT`
+- `POT_EXTIF` : the network interface
+- `POT_NETWORK` : the IPv4 network that will be used for internal communication only (it must not overlap with your network setup)
+- `POT_GATEWAY` : an address consistent with the internal IPv4 network 
 
 #### Network validation
 If you want to run a naive check on the network side of your configuration, you can run:
@@ -52,6 +52,7 @@ If you want to run a naive check on the network side of your configuration, you 
 
 ## Initialize the environment
 When the configuration file is ready, you can now run the initialization.
+
 !!! note
     If you are already using `pf`, I suggest to make a backup of you `pf` configuration file.
 
