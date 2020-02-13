@@ -1,11 +1,15 @@
 site_name: pot
 nav:
     - Home: index.md
-    - Getting started: Getting.md
-    - Full installation guide: Installation.md
-    - Container model:
-        - QuickStart: QuickStart.md
+    - "Thin Jails": Thin.md
+    - "Thick Jails": Thick.md
+    - Containers: Container.md
+    - HowTos:
+        - Getting started: Getting.md
+        - Full installation guide: Installation.md
         - Images: Images.md
+    - Old HowTos:
+        - QuickStart: QuickStart.md
 
 site_name: 'pot'
 site_url: 'https://pot.pizzamig.dev/'
