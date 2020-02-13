@@ -71,3 +71,32 @@ To initialize, run the command (use the flag `-v` if you want a bit more of verb
 # cp /etc/pf.conf /etc/pf.conf.bak
 # pot init -v
 ```
+## Create a simple `pot`
+We can now create the simplest `pot`
+```console
+# pot create -p mypot -t single -b 12.1
+```
+
+This command creates a `pot` named `mypot` based on FreeBSD 12.1 using one ZFS dataset (thick jail).
+
+Now you can start/stop it, via:
+```console
+# pot start mypot
+# pot stop mypot
+```
+If you want to have a shell inside your pot:
+```console
+# pot term mypot # when already running
+# pot run mypot # an alias for start+term
+```
+
+If you want to get some imformation about your pot, you can:
+```console
+# pot info -v -p mypot
+```
+
+## Congratulations!
+
+Congrats! You created your first jail using `pot`.  
+To learn more about the supported types of jails, you car read the documention for [Thin jails](Thin.md), [Thick jails](Thick.md) and [Containers](Container.md).  
+
