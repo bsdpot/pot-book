@@ -111,6 +111,12 @@ If you want to check that your network configuration is valid, you can use the u
 ```
 This command will show only the errors.
 
+### Other parameters
+
+#### `POT_LOG_FACILITY` (default local2)
+Since version 0.10.4, everytime `pot` is invoked, its activity is logged via `syslogd(8)`.  
+By default, the facility used is `local2`, but this parameter can be used to change it.
+
 ### Experimental parameters
 There are other parameters that are used by some experimental features.
 
