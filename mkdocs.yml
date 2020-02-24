@@ -1,12 +1,13 @@
 site_name: pot
 nav:
     - Home: index.md
-    - "Thin Jails": Thin.md
-    - "Thick Jails": Thick.md
-    - Containers: Container.md
     - HowTos:
         - Getting started: Getting.md
         - Full installation guide: Installation.md
+        - "Thin Jails": Thin.md
+        - "Thick Jails": Thick.md
+        - Containers: Container.md
+        - Network configuration: Network.md
         - Images: Images.md
     - Old HowTos:
         - QuickStart: QuickStart.md
