@@ -7,6 +7,7 @@ nav:
         - "Thin Jails": Thin.md
         - "Thick Jails": Thick.md
         - Containers: Container.md
+        - Volumes: Volumes.md
         - Network configuration: Network.md
         - Images: Images.md
     - Old HowTos:
