@@ -1,4 +1,4 @@
-# Network configuration
+# Network configuration available for `pot`
 During the creation phase, it's possible to specify which type of network configuration our `pot` should use.
 
 `pot` supports four different type of network configurations:
