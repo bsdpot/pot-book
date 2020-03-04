@@ -178,7 +178,7 @@ The `-m` mandatory option represents the mountpoint (absolute pathname) inside t
 The advantage of this approach, is that `fscomp` are recognized by the `pot` framework, and a set of features is provided, like snapshot, rollback and clone.
 
 ### Second volume type: an already existent dataset
-It could happen that you want to attach to a `pot` a pre-existing ZFS dataset and you don't want to create an emtpy `fscomp` and move all data there.
+It could happen that you want to attach to a `pot` a pre-existing ZFS dataset and you don't want to create an empty `fscomp` and move all data there.
 
 To add and external ZFS dataset, the command would be:
 ```console
@@ -243,7 +243,7 @@ This network type works pretty well when your `pot` doesn't provide/export any n
 If your host is a network that support static IPs, you can assign one static IP address to your `pot` via this network configuration type.
 **NOTE** Be sure that in the `pot` configuration file (`/usr/local/etc/pot/pot.conf`) you have correctly set the variable `POT_EXTIF`; this network interface is the one used to route the network traffic and to assign the IP address.
 For example, your system has 192.168.178.20/24 as IP address and your network administrator reserved you the additional IP address 192.168.178.200.
-To assing the latter IP address to your `pot` you can create it with the following command:
+To assign the latter IP address to your `pot` you can create it with the following command:
 ```console
 # pot create -p mypot -t single -b 11.3 -N alias -i 192.168.178.200
 # pot start mypot
@@ -251,12 +251,12 @@ To assing the latter IP address to your `pot` you can create it with the followi
 ```
 The alias 192.168.178.200 will be assigned to the network interface during the start phase.
 Now, your `pot` is bound to the address 192.168.178.200
-When the `pot` is stopped, the alias will be automatically removed from the inferface.
+When the `pot` is stopped, the alias will be automatically removed from the interface.
 More information about alias addresses on network interfaces are available in the `man` page of `ifconfig(8)`
 
 ### Network configuration: public virtual network bridge
 Thanks to `VNET(9)`, `pot` supports an IPv4 virtual network. This network is configured in configuration file (`/usr/local/etc/pot/pot.conf`), so be sure you have it properly configured.
-This network type refers to a shared bridge where the public virtual network lives. All `pot`s with this network type will share it. The virtual internal network is connected with the ouside via NAT.
+This network type refers to a shared bridge where the public virtual network lives. All `pot`s with this network type will share it. The virtual internal network is connected with the outside via NAT.
 
 To help the `pot` framework and all users to manage the public virtual network, an additional package is required, normally automatically installed as dependency of the package `pot`. It's also manually installable via:
 ```console
@@ -348,7 +348,7 @@ If you prefer to assign a specific IP address of your virtual network to your `p
 ```
 `pot` will verify if the IP address is available and free to be used.
 ### Export network services with the internal network
-The virtual network is not visible outside the host machine, becuase it's based on NAT of the pf's NAT.
+The virtual network is not visible outside the host machine, because it's based on NAT of the pf's NAT.
 To make your network services running in your `pot` visible outside the TCP/UDP, desired ports have to be exported/redirected.
 `pot` provides a command to tell which port has to be exported.
 ```console
@@ -385,4 +385,4 @@ pot mypot
 		192.168.178.20 port 30443 -> 10.192.0.11 port 443
 
 ```
-However, there is no guarantee that the choosen ports are available.
+However, there is no guarantee that the chosen ports are available.

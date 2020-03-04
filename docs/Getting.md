@@ -39,8 +39,8 @@ The file configuration file has comments to with default values and explanations
 
 However,  it's important to check if few defaults are compatible with your system:
 
-- `POT_ZFS_ROOT` : the name of the the dataset where to put all `pot`s (it will be created later)
-- `POT_FS_ROOT` : the mountpoint fo the `POT_ZFS_ROOT`
+- `POT_ZFS_ROOT` : the name of the dataset where to put all `pot`s (it will be created later)
+- `POT_FS_ROOT` : the mountpoint of the `POT_ZFS_ROOT`
 - `POT_EXTIF` : the network interface
 - `POT_NETWORK` : the IPv4 network that will be used for internal communication only (it must not overlap with your network setup)
 - `POT_GATEWAY` : an address consistent with the internal IPv4 network 
@@ -90,7 +90,7 @@ If you want to have a shell inside your pot:
 # pot run mypot # an alias for start+term
 ```
 
-If you want to get some imformation about your pot, you can:
+If you want to get some information about your pot, you can:
 ```console
 # pot info -v -p mypot
 ```
@@ -98,5 +98,5 @@ If you want to get some imformation about your pot, you can:
 ## Congratulations!
 
 Congrats! You created your first jail using `pot`.  
-To learn more about the supported types of jails, you car read the documention for [Thin jails](Thin.md), [Thick jails](Thick.md) and [Containers](Container.md).  
+To learn more about the supported types of jails, you can read the documentation for [Thin jails](Thin.md), [Thick jails](Thick.md) and [Containers](Container.md).  
 

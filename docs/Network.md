@@ -14,12 +14,12 @@ In the next sections, all network setups will be explained in details.
 
 ## Network configuration: inherit
 This network configuration means that the jail will use the same network stack of the hosting machine: the same IP address, the same network configuration.  
-The `inherit` network type is the default one, but it can be explicitely selected during the creation, with the command:
+The `inherit` network type is the default one, but it can be explicitly selected during the creation, with the command:
 ```console
 # pot create -p mypot -t single -b 11.3 -N inherit
 ```
 
-The `inherit` network configuration will inherit both IPv4 and IPv6 accessability, whatever is available in the host machine.
+The `inherit` network configuration will inherit both IPv4 and IPv6 accessibility, whatever is available in the host machine.
 
 This network type works pretty well when your `pot` doesn't provide/export any network services, but it uses the network's host as client, like a `pot` created to build applications.
 
@@ -30,7 +30,7 @@ If your host is in a network where you can assign static IPs, you can bind one s
     Be sure that in the `pot` configuration file (`/usr/local/etc/pot/pot.conf`) you have correctly set the variable `POT_EXTIF`; this network interface is the one used by default to route the network traffic and to assign the IP address.
 
 For example, your system has 192.168.178.20/24 as IP address and your network administrator reserved you the additional IP address 192.168.178.200.  
-To assing the latter IP address to your `pot` you can create it with the following command:
+To use the latter IP address to your `pot` you can create it with the following command:
 ```console
 # pot create -p mypot -t single -b 11.3 -N alias -i 192.168.178.200
 # pot start mypot
@@ -59,12 +59,12 @@ This network type supports IPv6 as well:
 ```
 In this example, we assigned the IPv6 address 2a00:1234:1234:1234::443 to our `pot`.
 
-When the `pot` is stopped, the alias will be automatically removed from the inferface.
+When the `pot` is stopped, the alias will be automatically removed from the interface.
 
 ## Network configuration: public virtual network bridge
 Thanks to `VNET(9)`, `pot` supports an IPv4 virtual network. This network is configured in the configuration file (`/usr/local/etc/pot/pot.conf`), so be sure you have it properly configured (a full explanation is available [here](Installation.md#network-parameters)).
 
-This network type refers to a shared bridge where the public virtual network lives. All `pot`s with this network type will share it. The virtual internal network is connected with the ouside via NAT.
+This network type refers to a shared bridge where the public virtual network lives. All `pot`s with this network type will share it. The virtual internal network is connected with the outside via NAT.
 
 !!! note
     To help the `pot` framework and all users to manage the public virtual network, an additional package is required, normally automatically installed as dependency of the package `pot`. It's also manually installable via:
@@ -107,9 +107,9 @@ root@mypot:~ # exit
 ```
 The `auto` keyword will automatically select an available address in the internal virtual network. `auto` is the default value, in this example it can be omitted.
 
-Commands like `pot info -p mypot` will show exactly which address has been assigned to the `pot`, while `potnet show` will show an overview ot the assigned IP addresses of your internal network.
+Commands like `pot info -p mypot` will show exactly which address has been assigned to the `pot`, while `potnet show` will show an overview of the assigned IP addresses of your internal network.
 
-If it's preferrable to assign a specific IP address to the `pot`, it's possible to use:
+If preferable, it's possible to assign a specific IP address to the `pot`:
 ```console
 # pot create -p mypot2 -t single -b 11.3 -N public-bridge -i 10.192.0.10
 ```
@@ -161,14 +161,14 @@ The `auto` keyword will automatically select an available address in the interna
 
 Commands like `pot info -p mypot` and `potnet show -b mybridge` show the `pot` network configuration and the status of the bridge.
 
-If it's preferrable to assign a specific IP address to the `pot`, it's possible to use:
+If preferable, it's possible to assign a specific IP address to the `pot`:
 ```console
 # pot create -p mypot2 -t single -b 11.3 -N private-bridge -B mybridge -i 10.192.0.19
 ```
 `pot` will verify if the IP address is available and free to be used.
 
 ## Export network services while using internal network
-Virtual networks are not visible outside the host machine, the bridges are masked outsied via NAT.
+Virtual networks are not visible outside the host machine, the bridges are masked outside via NAT.
 
 To make network services reachable from outside the TCP desired ports have to be exported/redirected.
 
@@ -178,7 +178,7 @@ The host port can be selected automatically or it can be provided by the user, d
 ```console
 # pot export-ports -p mypot -e 80 -e 443
 ```
-The `export-ports` command will mark ports 80 and 443 as exportable. When the `pot` starts, available ports will be identified and redirection rules will be automatcially set up.
+The `export-ports` command will mark ports 80 and 443 as exportable. When the `pot` starts, available ports will be identified and redirection rules will be automatically set up.
 
 To know which port is used, you can use the `show` command:
 ```console

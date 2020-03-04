@@ -55,12 +55,12 @@ Under the folder `/usr/local/etc/pot` you'll find two files:
 
 The `pot.default.conf` contains all the default values and it shouldn't be touched.  
 All needed changes can be made in the `pot.conf` file. 
-This configuration file provide already a brief explanation for all paramaters, but here we go deep, explaining them one by one
+This configuration file provide already a brief explanation for all parameters, but here we go deep, explaining them one by one
 
 ### File system parameters
 `pot` is based on ZFS. In the configuration file, 2 parameters are used to let `pot` use your ZFS pool correctly.
 #### `POT_ZFS_ROOT` (default `zroot/pot`)
-This paramater is the ZFS dataset that will be used by `pot` to store whatever will be needed: jails file systems, bases, and so on.
+This parameter is the ZFS dataset that will be used by `pot` to store whatever will be needed: jails file systems, bases, and so on.
 If the dataset doesn't exist, it will be created by the initialization command (See the [last chapter](Installation.md#initialize-the-environment)).
 #### `POT_FS_ROOT` (default `/opt/pot`)
 This parameter is the mountpoint for the `POT_ZFS_ROOT` dataset. You shouldn't use a mountpoint that exists and contains file, otherwise the content will become unreachable.
@@ -114,7 +114,7 @@ This command will show only the errors.
 ### Other parameters
 
 #### `POT_LOG_FACILITY` (default local2)
-Since version 0.10.4, everytime `pot` is invoked, its activity is logged via `syslogd(8)`.  
+Since version 0.10.4, every time `pot` is invoked, its activity is logged via `syslogd(8)`.  
 By default, the facility used is `local2`, but this parameter can be used to change it.
 
 ### Experimental parameters

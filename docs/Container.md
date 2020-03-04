@@ -1,3 +1,4 @@
 # `pot` as container
 
-Comming soon!
+All *container* oriented features available in `pot`
+

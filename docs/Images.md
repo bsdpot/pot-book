@@ -1,7 +1,7 @@
 # Using `pot` images
 
 This guide has the ambitious goal of explain how to create `pot` images, a feature that allows `pot` to be used with nomad, but it can be useful in other use cases.
-This guide assumes that you have already installed `pot` and you are already familiar with it (installation and quickstart guide).
+This guide assumes that you have already installed `pot` and you are already familiar with it ([Installation](Installation.md) and [Getting started](Getting.md) guides).
 
 ## What is a `pot` image?
 
@@ -75,7 +75,7 @@ The first file is the image, the second file is a hash file, used by the `import
 The `export` command will create an image *if and only if* one snapshot is available.  
 A flag `-A` has been added to automatically fix the number of available snapshots:
 
-* if zero snapshoto are available, `-A` will automatically creates one, invoking `pot snapshot`
+* if zero snapshots are available, `-A` will automatically creates one, invoking `pot snapshot`
 * if two or more snapshots are available, `-A` will automatically invoke `pot purge-snapshots` to keep only the last snapshot available
 
 The command `pot purge-snapshots` deletes all snapshots, except the last one.
