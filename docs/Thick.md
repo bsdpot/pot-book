@@ -42,7 +42,71 @@ In common with all `pot`s, several commands are available to thick jails:
 ```
 
 ## Additional features
+Because their internal structure is easier to manage, thick jails provide additional features, that are not available for thin jails
 
-### export a `pot` as image
+### Export a `pot` as image
 
-### import an image of a `pot`
+A `pot` image is a snapshot of the ZFS dataset stored in a compressed file. Technically, a snapshot of a `pot` is exported in a file, not the `pot` itself.
+
+<!---
+TODO: add a link to a snapshot/rollback section, when ready
+-->
+A snapshot can be taken with the commands:
+```console
+# pot stop casserole # if the pot is running
+# pot snapshot -p casserole
+# pot purge-snapshot -p casserole
+```
+
+When a snapshot is available, an image of the snapshot can be exported:
+
+```console
+# pot export -p casserole -t 1.0
+```
+In detail:
+
+* `-p casserole` : the name of the `pot`
+* `-t 1.0` : the tag, a label that can be used for versioning
+
+The output is two files:
+```console
+# ls
+casserole_1.0.xz
+casserole_1.0.xz.skein
+```
+
+The `casserole_1.0.xz` file is the image and contains the filesystem of the `pot`, while the `casserole_1.0.xz.skein` file is just a hash
+
+??? note "Compression performance"
+    The compression utility chosen is `xz(1)` that provides high compression ratio, but it can be a bit slow. `xz(1)` is configured to run in parallel using as many core as possible. If you are running `pot` in a VM, you can consider to add more CPU core to speed up the compression process
+
+<!---
+TODO: document the other options of export
+-->
+### Import a `pot` from an image
+
+The opposite operation of `export` is `import`.
+
+As example, the `casserole` image can be imported from the local directory with the command:
+```console
+# pot import -p casserole -t 1.0 -U .
+```
+
+In detail:
+
+* `-p casserole` : the name of the `pot`
+* `-t 1.0` : the tag, a label that can be used for versioning
+* `-U .` : the URL where to look for the image; in this case, the local folder (`.`)
+
+The `pot` is imported with the name `casserole_1_0`.
+
+```console
+# pot ls -q
+casserole_1_0
+casserole
+```
+
+<!---
+TODO: document the other options of import
+TODO: add an example of download from a web server
+-->
