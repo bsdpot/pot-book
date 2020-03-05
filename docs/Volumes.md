@@ -12,10 +12,10 @@ The copy happens when the command is executed and only at that time. `copy-in` i
 
 Copying a single file in a `pot` is very straightforward:
 ```console
-# pot copy-in -p mypot -s myfile -d /var/tmp
+# pot copy-in -p casserole -s myfile -d /var/tmp
 ```
 
-With this command, the file `myfile` is copied in `/var/tmp` of the `pot` `mypot`.
+With this command, the file `myfile` is copied in `/var/tmp` of the `pot` `casserole`.
 
 !!! note
     This command supports single file only. No glob or regular expression can be used
@@ -24,7 +24,7 @@ With this command, the file `myfile` is copied in `/var/tmp` of the `pot` `mypot
 
 Copying a directory is also very straightforward:
 ```console
-# pot copy-in -p mypot -s mydir -d /var/tmp
+# pot copy-in -p casserole -s mydir -d /var/tmp
 ```
 With this command, the directory `mydir` (and all its content) is copied in `/var/tmp`, creating the directory `/var/tmp/mydir`.
 
@@ -51,11 +51,11 @@ The `-v` flag is relevant to show the `dataset` section, where the mounts are li
 ### Generic directory
 A directory can be mounted in an existing `pot` via the command:
 ```console
-# pot mount-in -p mypot -m /mnt -d mydir
+# pot mount-in -p casserole -m /mnt -d mydir
 ```
 where:
 
-* `-p mypot` : the name of the `pot`
+* `-p casserole` : the name of the `pot`
 * `-m /mnt` : the mountpoint inside the `pot`
 * `-d mydir` : the directory to be mounted
 
@@ -66,11 +66,11 @@ To mount in read-only mode, the flag `-r` can be used.
 ### ZFS dataset
 A ZFS dataset can be mounted in an existing `pot` via the command:
 ```console
-# pot mount-in -p mypot -m /mnt -z zroot/mydataset
+# pot mount-in -p casserole -m /mnt -z zroot/mydataset
 ```
 where:
 
-* `-p mypot` : the name of the `pot`
+* `-p casserole` : the name of the `pot`
 * `-m /mnt` : the mountpoint inside the `pot`
 * `-z zroot/mydataset` : the ZFS dataset to be mounted
 
@@ -98,11 +98,11 @@ The list of available `fscomp`s can be obtained with the command:
 
 Finally, a `fscomp` can be mounted in a `pot` with the command:
 ```console
-# pot mount-in -p mypot -f myfscomp -m /mnt
+# pot mount-in -p casserole -f myfscomp -m /mnt
 ```
 where:
 
-* `-p mypot` : the name of the `pot`
+* `-p casserole` : the name of the `pot`
 * `-m /mnt` : the mountpoint inside the `pot`
 * `-f myfscomp` : the `fscomp` to be mounted
 
@@ -112,14 +112,3 @@ To mount in read-only mode, the flag `-r` can be used.
 
 The `fscomp` is a ZFS dataset, hence the `-w` flag can be used to avoid `nullfs(5)` overhead, by changing the mountpoint of the dataset. This feature, however, make sense if the `fscomp` is used only by one `pot` at a time.
 
-### Common consideration
-The `mount-in` command will change the configuration of the `pot`; the "volume" will be automatically mounted when the `pot` starts and unmounted when the `pot` stops.
-If you run `mount-in` when the `pot` is already running, the "volume" is mounted on the fly.
-A "volume" can be used with multiple `pot`s. Potential problems, like concurrent access to the same files, cannot be managed by `pot` and are left to the user.
-
-In order to mitigate concurrency access to the same `fscomp`, the option `-r` is introduced:
-```console
-# pot mount-in -p mypot-ro -f myfscomp -m /mnt -r
-# pot mount-in -p mypot-rw -f myfscomp -m /mnt
-```
-This option will inform the framework to mount `myfscomp` in `mypot-ro` in read-only mode, while in `mypot-rw` that same `myfscomp` is mounted in read-write mode.
