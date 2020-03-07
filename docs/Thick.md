@@ -58,6 +58,8 @@ A snapshot can be taken with the commands:
 # pot purge-snapshot -p casserole
 ```
 
+More information about snapshots are available in the dedicated [Snapshot](Snapshot.md) section.
+
 When a snapshot is available, an image of the snapshot can be exported:
 
 ```console

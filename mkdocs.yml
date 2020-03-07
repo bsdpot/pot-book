@@ -8,6 +8,7 @@ nav:
         - "Thick Jails": Thick.md
         - Containers: Container.md
         - Volumes: Volumes.md
+        - Snapshot: Snapshot.md
         - Network configuration: Network.md
         - Images: Images.md
     - Old HowTos:
