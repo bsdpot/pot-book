@@ -2,21 +2,21 @@
 
 This is a guide to prepare your FreeBSD installation to use the `pot` jail framework.
 
-!!! note
-    99% of the operations needs `root` privileges. In this guide, we consider to be logged in as `root`
+??? note "`root` user"
+    Many operations need `root` privileges. In this guide, we consider to be logged in as `root`
 
-!!! note
+??? note "ZFS"
     ZFS is mandatory, so if you don't know what it is or you don't have a ZFS pool, please consider to read this [quick guide](https://www.freebsd.org/doc/handbook/zfs-quickstart.html).
 
 ## FreeBSD version
 `pot` is mainly developed on CURRENT, but it's mainly tested and used on 12.1. 
-It should work also on 11.3, even if the kernel has to be rebuild, to activate VNET(9), via the VIMAGE option.
-If you want to use FreeBSD 11.3, please follow the instruction reported [here](https://www.freebsd.org/doc/handbook/kernelconfig.html) to build a custom kernel with the VIMAGE option enabled.
+It should work also on 11.3, even if the kernel has to be rebuild, to activate `VNET(9)`, via the `VIMAGE` option.  
+If you want to use FreeBSD 11.3, please follow the instruction reported on the [handbook](https://www.freebsd.org/doc/handbook/kernelconfig.html) to build a custom kernel with the `VIMAGE` option enabled.
 
 ## Install `pot`
 `pot` is available as package or port.
 
-The suggested way is to install it using the packages:
+The suggested way is to install `pot` is to use the package:
 ```console
 # pkg install -y pot
 ```
@@ -28,7 +28,7 @@ If you want to install it using ports, you can
 # make install clean
 ```
 
-!!! note
+??? note "Build with `ports`"
     A dependency of `pot`, called `potnet` is written in Rust. If you install `potnet` via ports, the build dependencies will be built as well, and it can take really long time (depending on the power of you system, it could be several hours).
 
 ## Enable the resource limit database
@@ -113,8 +113,8 @@ This command will show only the errors.
 
 ### Other parameters
 
-#### `POT_LOG_FACILITY` (default local2)
-Since version 0.10.4, every time `pot` is invoked, its activity is logged via `syslogd(8)`.  
+#### `POT_LOG_FACILITY` (default `local2`)
+++"0.10.4"++ Every time `pot` is invoked, its activity is logged via `syslogd(8)`.  
 By default, the facility used is `local2`, but this parameter can be used to change it.
 
 ### Experimental parameters

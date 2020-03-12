@@ -46,6 +46,7 @@ markdown_extensions:
         permalink: true
     - pymdownx.superfences
     - pymdownx.details
+    - pymdownx.keys
 plugins:
   - search
   - minify:

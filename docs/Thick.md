@@ -48,9 +48,6 @@ Because their internal structure is easier to manage, thick jails provide additi
 
 A `pot` image is a snapshot of the ZFS dataset stored in a compressed file. Technically, a snapshot of a `pot` is exported in a file, not the `pot` itself.
 
-<!---
-TODO: add a link to a snapshot/rollback section, when ready
--->
 A snapshot can be taken with the commands:
 ```console
 # pot stop casserole # if the pot is running
