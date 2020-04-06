@@ -20,7 +20,7 @@ The suggested way is to install `pot` is to use the package:
 ```console
 # pkg install -y pot
 ```
-All dependencies will be automatically installed (if not yet present)
+All dependencies will be automatically installed, if not already installed.
 
 If you want to install it using ports, you can
 ```console
@@ -41,12 +41,13 @@ This feature is normally disabled (it seems it causes a performance penalty in p
 This settings will take effect at the next reboot.
 
 #### Known issue
-We have found a performance issue with the `vtnet` driver.
-If you are installing `pot` on a VM using `vtnet`, probably you want to add this line to your `/boot/loader.conf`:
+An issue with the `vtnet` driver can cause poor performance on the network card.
+If `pot` is installed on a VM based on `vtnet`, the following command avoids the performance penalty:
 ```console
 # echo hw.vtnet.lro_disable=1 >> /boot/loader.conf
 ```
-This settings will take effect at the next reboot.
+
+This setting needs a reboot to take effect.
 ## `pot` framework configuration
 Under the folder `/usr/local/etc/pot` you'll find two files:
 
@@ -73,7 +74,19 @@ In order to use network types like `alias`, `public-bridge` or `private-bridge`,
 #### `POT_EXTIF` (default `em0`)
 Currently, `pot` assumes that all the network traffic is going through one physical network interface.
 This parameter configures `pot` to use the specified network interface.
-It's relevant for `alias`, `public-bridge` and `private-bridge` network type.
+
+#### `POT_NETWORK_STACK` (default `ipv4`)
+++"0.11.0"++ This parameter configures the network stack that a `pot` will set when created.  
+There are three possible values
+
+* `ipv4` : all `pot`s will use IPv4 only
+* `ipv6` : all `pot`s will use IPv6 only
+* `dual` : all `pot`s will have dual stack support, both IPv4 and IPv6
+
+As explained here, this variable is used as default value when a `pot` is created or cloned.
+<!---
+TODO Add a reference to specific network configuration pages
+-->
 
 #### `POT_NETWORK` (default `10.192.0.0/10`)
 This parameter specifies the IPv4 address of you internal virtual network and is used by the `public-bridge` network type only.
