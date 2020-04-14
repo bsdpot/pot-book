@@ -1,11 +1,35 @@
 # Network configuration available for `pot`
-During the creation phase, it's possible to specify which type of network configuration our `pot` should use.
 
-`pot` supports four different type of network configurations:
+The creation phase of a `pot` sets its network configuration. 
+The two main network parameters are:
+
+* network stack
+* network type
+
+Those two parameters, together with their more specific options, define the network setup of a `pot`.
+
+## Network stack
+++"0.11.0"++ This parameter set the network stack that the `pot` can use.
+
+The three possible choices are:
+
+* `ipv4` : the `pot` has access to the IPv4 stack only
+* `ipv6` : the `pot` has access to the IPv6 stack only
+* `dual` : the `pot` has access to both IPv4 and IPv6 network stacks
+
+Different network types provide different support to the selected network stack. However, even if the implementation can differ, the outcome is always the same.
+
+The network stack is assigned when the `pot` is created. The option `-S` selects which network stack will be used by the created `pot`.
+If no network stack is selected, the default one is assigned ([here](Installation.md#pot_network_stack-default-ipv4) on how to configure the default network stack)
+
+
+## Network types
+
+`pot` supports four different type of network types:
 
 * inherit
 * alias (IPv4 or IPv6) on a network interface
-* IPv4 address on the public internal virtual network
+* IPv4 and/or IPv6 addresses on the public internal virtual network
 * IPv4 address on a private internal virtual network
 
 By default, `inherit` is the chosen one.
@@ -16,21 +40,25 @@ In the next sections, all network setups will be explained in details.
 This network configuration means that the jail will use the same network stack of the hosting machine: the same IP address, the same network configuration.  
 The `inherit` network type is the default one, but it can be explicitly selected during the creation, with the command:
 ```console
-# pot create -p mypot -t single -b 11.3 -N inherit
+# pot create -p casserole4 -t single -b 11.3 -N inherit -S ipv4
+# pot create -p casserole6 -t single -b 11.3 -N inherit -S ipv6
+# pot create -p casserole -t single -b 11.3 -N inherit -S dual
 ```
 
-The `inherit` network configuration will inherit both IPv4 and IPv6 accessibility, whatever is available in the host machine.
+As explained in [Network stack](Network.md#netowrk-stack), `casserole4` inherits the network stack of the host, but only `ipv4` is allowed, `ipv6` is not usable. Similarly, `casserole6` inherits `ipv6` stack only, while `casserole` inherits the whole stack
 
-This network type works pretty well when your `pot` doesn't provide/export any network services, but it uses the network's host as client, like a `pot` created to build applications.
+If the option `-S` is omitted, `pot create` will use the `POT_NETWORK_STACK` configuration parameter ([here](Installation.md#pot_network_stack-default-ipv4) for the explanation).
+
+The network type `inherit` works pretty well when your `pot` doesn't provide/export any network services, but it uses the network's host as client, like a `pot` created to build applications.
 
 ## Network configuration: IPv4 or IPv6 alias
 If your host is in a network where you can assign static IPs, you can bind one static IP address to your `pot` via this network configuration type.
 
-!!! note
-    Be sure that in the `pot` configuration file (`/usr/local/etc/pot/pot.conf`) you have correctly set the variable `POT_EXTIF`; this network interface is the one used by default to route the network traffic and to assign the IP address.
+??? note
+    Be sure that in the `pot` configuration file (`/usr/local/etc/pot/pot.conf`) you have correctly set the variable `POT_EXTIF`; this network interface is the one used by default to route the network traffic and to assign the IP address ([here](Installation.md#pot_extif-default-em0) more defails).
 
-For example, your system has 192.168.178.20/24 as IP address and your network administrator reserved you the additional IP address 192.168.178.200.  
-To use the latter IP address to your `pot` you can create it with the following command:
+For example, the host system has `192.168.178.20/24` as IP address and the network administrator reserved an additional IP address, for instance the IP `192.168.178.200` for the service running in the `pot`. 
+To assign this IP address to the `pot`, the following command can be used:
 ```console
 # pot create -p mypot -t single -b 11.3 -N alias -i 192.168.178.200
 # pot start mypot
@@ -38,7 +66,7 @@ To use the latter IP address to your `pot` you can create it with the following 
 # ifconfig
 ```
 
-The alias 192.168.178.200 will be assigned to the network interface specified in `/usr/local/etc/pot/pot.conf` during the start phase.  Now, your `pot` is bound to the address 192.168.178.200
+The alias `192.168.178.200` will be assigned to the network interface `POT_EXTIF`, specified in `/usr/local/etc/pot/pot.conf`, during the start phase.  When running, the `pot` is bound to the address `192.168.178.200`.
 
 If you want to used a different network interface, `alias` network type support an additional option for that purpose:
 ```console
