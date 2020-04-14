@@ -9,7 +9,7 @@ This is a guide to prepare your FreeBSD installation to use the `pot` jail frame
     ZFS is mandatory, so if you don't know what it is or you don't have a ZFS pool, please consider to read this [quick guide](https://www.freebsd.org/doc/handbook/zfs-quickstart.html).
 
 ## FreeBSD version
-`pot` is mainly developed on CURRENT, but it's mainly tested and used on 12.1. 
+`pot` is usually developed on CURRENT, but it's mainly tested and used on 12.1. 
 It should work also on 11.3, even if the kernel has to be rebuild, to activate `VNET(9)`, via the `VIMAGE` option.  
 If you want to use FreeBSD 11.3, please follow the instruction reported on the [handbook](https://www.freebsd.org/doc/handbook/kernelconfig.html) to build a custom kernel with the `VIMAGE` option enabled.
 
@@ -83,10 +83,7 @@ There are three possible values
 * `ipv6` : all `pot`s will use IPv6 only
 * `dual` : all `pot`s will have dual stack support, both IPv4 and IPv6
 
-As explained here, this variable is used as default value when a `pot` is created or cloned.
-<!---
-TODO Add a reference to specific network configuration pages
--->
+As explained [here](Network.md#network-stack), this variable is only used as default value when a `pot` is created or cloned and no specific option is provided..
 
 #### `POT_NETWORK` (default `10.192.0.0/10`)
 This parameter specifies the IPv4 address of you internal virtual network and is used by the `public-bridge` network type only.

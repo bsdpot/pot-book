@@ -52,42 +52,37 @@ If the option `-S` is omitted, `pot create` will use the `POT_NETWORK_STACK` con
 The network type `inherit` works pretty well when your `pot` doesn't provide/export any network services, but it uses the network's host as client, like a `pot` created to build applications.
 
 ## Network configuration: IPv4 or IPv6 alias
-If your host is in a network where you can assign static IPs, you can bind one static IP address to your `pot` via this network configuration type.
+If the host is in a network where static IPs can be assigned, one or more IPs address can be bound to a `pot` via this network configuration type.
 
 ??? note
     Be sure that in the `pot` configuration file (`/usr/local/etc/pot/pot.conf`) you have correctly set the variable `POT_EXTIF`; this network interface is the one used by default to route the network traffic and to assign the IP address ([here](Installation.md#pot_extif-default-em0) more defails).
 
-For example, the host system has `192.168.178.20/24` as IP address and the network administrator reserved an additional IP address, for instance the IP `192.168.178.200` for the service running in the `pot`. 
-To assign this IP address to the `pot`, the following command can be used:
+Let's make a complex, but comprehensive example:
 ```console
-# pot create -p mypot -t single -b 11.3 -N alias -i 192.168.178.200
-# pot start mypot
-# pot info -vp mypot
+# pot create -p casserole -t single -b 11.3 -N alias -i "em0|2a00:1234:1234:1234::443" -i "em0|192.168.178.200" -i "2a00:1234:1234:1234::80" -S dual
+# pot start casserole
+# pot info -vp casserole
 # ifconfig
 ```
 
-The alias `192.168.178.200` will be assigned to the network interface `POT_EXTIF`, specified in `/usr/local/etc/pot/pot.conf`, during the start phase.  When running, the `pot` is bound to the address `192.168.178.200`.
+Let's explain the `create` command line:
 
-If you want to used a different network interface, `alias` network type support an additional option for that purpose:
+* `-N alias` : the network type has to be explicitly specified
+* `-i "em0|2a00:1234:1234:1234::443"` : assign the IPv6 address `2a00:1234:1234:1234::443` to the network interface `em0`
+* `-i "em0|192.168.178.200"` : assign the IPv4 address `192.168.178.200` to the network interface `em0`
+* `-i "2a00:1234:1234:1234::80"`: assign the IPv6 address `2a00:1234:1234:1234::80` to the default network interface, specified in the variable `POT_EXTIF`
+* `-S dual` : enable both IP stacks
+
+If `POT_EXTIF`'s value is `em0`, the network interface can be omitted. 
+
+To provide a bit of flexibility, it's possible to specify IP addresses of a stack, even if it's not used; those IPs will be just ignored. For instance:
 ```console
-# pot create -p mypot_vlan -t single -b 11.3 -N alias -i 10.200.0.80 -I vlan30
-# pot start mypot
-# pot info -vp mypot
-# ifconfig
+# pot create -p casserole -t single -b 11.3 -N alias -i "em0|2a00:1234:1234:1234::443" -i "em0|192.168.178.200" -i "2a00:1234:1234:1234::80" -S ipv4
 ```
 
-In this example, the created `pot` will use the IP address 10.200.0.80, but on a different network interface.
+The IPv6 addresses will be just ignored and during `pot start`. 
 
-This network type supports IPv6 as well:
-```console
-# pot create -p mypot_vlan -t single -b 11.3 -N alias -i 2a00:1234:1234:1234::443
-# pot start mypot
-# pot info -vp mypot
-# ifconfig
-```
-In this example, we assigned the IPv6 address 2a00:1234:1234:1234::443 to our `pot`.
-
-When the `pot` is stopped, the alias will be automatically removed from the interface.
+The command `pot stop` takes care to automatically remove the alias IP from the interface.
 
 ## Network configuration: public virtual network bridge
 Thanks to `VNET(9)`, `pot` supports an IPv4 virtual network. This network is configured in the configuration file (`/usr/local/etc/pot/pot.conf`), so be sure you have it properly configured (a full explanation is available [here](Installation.md#network-parameters)).
