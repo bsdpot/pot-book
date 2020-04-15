@@ -80,16 +80,25 @@ To provide a bit of flexibility, it's possible to specify IP addresses of a stac
 # pot create -p casserole -t single -b 11.3 -N alias -i "em0|2a00:1234:1234:1234::443" -i "em0|192.168.178.200" -i "2a00:1234:1234:1234::80" -S ipv4
 ```
 
-The IPv6 addresses will be just ignored and during `pot start`. 
+The IPv6 addresses will be just ignored during `pot start`. 
 
 The command `pot stop` takes care to automatically remove the alias IP from the interface.
 
-## Network configuration: public virtual network bridge
-Thanks to `VNET(9)`, `pot` supports an IPv4 virtual network. This network is configured in the configuration file (`/usr/local/etc/pot/pot.conf`), so be sure you have it properly configured (a full explanation is available [here](Installation.md#network-parameters)).
+## Network configuration: public bridge virtual network
+Thanks to `VNET(9)`, `pot` supports an internal virtual network. 
+Let's start explaining few things:
 
-This network type refers to a shared bridge where the public virtual network lives. All `pot`s with this network type will share it. The virtual internal network is connected with the outside via NAT.
+* bridge  : it's based on the pseudo network bridge device ([man page](https://www.freebsd.org/cgi/man.cgi?query=bridge&manpath=FreeBSD+12.1-RELEASE+and+Ports))
+* public  : there is one bridge for IPv4 and one for IPv6. All `pot`s using this network type are connected to the same bridge
+* virtual : well, it's not a virtual network, even if a physical network card is needed for external access
 
-!!! note
+### public bridge on IPv4
+
+The IPv4 public bridge is a network that lives only on the host system. This network is directly connected to the host network, but it masked via NAT.
+
+The network setup is stored in the configuration file (`/usr/local/etc/pot/pot.conf`), so be sure to have it properly configured (a full explanation is available [here](Installation.md#network-parameters)).
+
+??? note
     To help the `pot` framework and all users to manage the public virtual network, an additional package is required, normally automatically installed as dependency of the package `pot`. It's also manually installable via:
     ```console
     # pkg install potnet
@@ -108,7 +117,7 @@ Addresses already taken:
 	10.192.0.1	default gateway
 	10.192.0.2	dns
 ```
-The output is from my configuration (and also the default one), however your address' range can differ, depending on the configuration values you have adopted.
+The output is from my configuration (and also the default one), however your address' range can differ, depending on the adopted configuration values. Please, make sure that the virtual network doesn't overlap with any networks your host system is attached to.
 
 Optionally, you can start the virtual network via the command:
 ```console
@@ -116,55 +125,78 @@ Optionally, you can start the virtual network via the command:
 ```
 This command will create and configure the network interfaces properly and will activate `pf` to perform NAT on the virtual network.
 
-!!! note
+!!! info
     The command `vnet-start` is automatically executed when a `pot` is configured to use the public virtual network. There should be no need to run it manually.
 
-The following command will create a `pot` running on the internal network:
+The following command creates a `pot` on the internal network:
 ```console
-# pot create -p mypot -t single -b 11.3 -N public-bridge -i auto
-# pot run mypot
-root@mypot:~ # ping 1.1.1.1
+# pot create -p casserole4 -t single -b 11.3 -N public-bridge -i auto -S ipv4
+# pot run casserole4
+root@casserole4:~ # ping 8.8.8.8
 [..]
-root@mypot:~ # exit
-# pot stop mypot
+root@casserole4:~ # exit
+# pot stop casserole4
 ```
 The `auto` keyword will automatically select an available address in the internal virtual network. `auto` is the default value, in this example it can be omitted.
 
-Commands like `pot info -p mypot` will show exactly which address has been assigned to the `pot`, while `potnet show` will show an overview of the assigned IP addresses of your internal network.
+Commands like `pot info -p casserole4` will show exactly which address has been assigned to the `pot`, while `potnet show` will show an overview of the assigned IP addresses of your internal network.
 
 If preferable, it's possible to assign a specific IP address to the `pot`:
 ```console
-# pot create -p mypot2 -t single -b 11.3 -N public-bridge -i 10.192.0.10
+# pot create -p casserole4 -t single -b 11.3 -N public-bridge -i 10.192.0.10
 ```
 `pot` will verify if the IP address is available and free to be used.
 
-## Network configuration: private virtual network bridge
-The public virtual network has the downside that all `pot`s share the same bridge, potentially affecting isolation.  
-To mitigate this issue, private virtual network has been introduced.
+### public bridge on IPv6
 
-A private virtual network is like the just a different separated bridge, that can be used to connect multiple `pot`s, but it's not shared with all `pot`s. From a technological point of view, a private bridge is like a public bridge, but it's shared between fewer `pot`s.
+++"0.11.0"++ The IPv6 public bridge is a bridge that contains the `POT_EXTIF` network interface. All the `pot`s connected to this bridge will share the bridge and are connected to the network through the network interface.
+
+!!! Warning
+    The `pot`s attached to the IPv6 bridge will set their IP via SLAAC. If the host network doesn't provide such feature, the IPv6 bridge cannot be used.
+
+!!! Warning
+    Bridge needs to put the network card in *promiscuous mode*. Typically, many WiFi network cards (and apparently few ethernet cards) don't support the *promiscuous mode*. If the host network card doesn't support this mode, the public bridge cannot run on IPv6.
+
+The following command creates a `pot` on the internal network:
+```console
+# pot create -p casserole6 -t single -b 11.3 -N public-bridge -i auto -S ipv6
+# pot run casserole6
+root@casserole6:~ # ping6 2001:4860:4860::8888
+[..]
+root@casserole6:~ # exit
+# pot stop casserole6
+```
+
+## Network configuration: private bridge virtual network
+The public virtual network has the downside that all `pot`s share the same bridge, potentially affecting isolation or performance.  
+To mitigate this issue, private virtual network has been introduced, but only IPv4 is supported.
+
+!!! warning
+    If IPv6 support is needed, only the private bridge network type cannot be used
+
+A private virtual network is like the just a different separated bridge, that can be used to connect multiple `pot`s, but it's not shared with all `pot`s. From a technological point of view, a private bridge is exactly like a public bridge, but it's dedicated to specifics `pot`s.
 
 First of all, to use a private virtual network a private bridge has to be created:
 ```console
-# pot create-private-bridge -B mybridge -S 4
+# pot create-private-bridge -B stove -S 4
 ```
-This command will create a new private bridge, called `mybridge`, with a network segment big enough to connect 4 `pot`s.
+This command will create a new private bridge, called `stove`, with a network segment big enough to connect 4 `pot`s.
 
 !!! note
     The size is fixed and cannot be modified after the bridge is created.
 
 Using `potnet` it's possible to check the details of the private bridge via the command:
 ```console
-# potnet show -b mybridge
-	10.192.0.16	mybridge bridge - network
-	10.192.0.17	mybridge bridge - gateway
-	10.192.0.23	mybridge bridge - broadcast
+# potnet show -b stove
+	10.192.0.16	stove bridge - network
+	10.192.0.17	stove bridge - gateway
+	10.192.0.23	stove bridge - broadcast
 ```
 The output is from my configuration, however your address' range can differ, depending on the configuration values you have adopted and the network segment available when the bridge is created.
 
 To activate a specific bridge, you can use the command:
 ```console
-# pot vnet-start -B mybridge
+# pot vnet-start -B stove
 ```
 This command will create and configure the network interfaces properly and will activate `pf` to perform NAT on the virtual network.
 
@@ -173,41 +205,56 @@ This command will create and configure the network interfaces properly and will 
 
 The following command will create a `pot` running on the private internal network:
 ```console
-# pot create -p mypot -t single -b 11.3 -N private-bridge -B mybridge -i auto
-# pot run mypot
-root@mypot:~ # ping 1.1.1.1
+# pot create -p casserole -t single -b 11.3 -N private-bridge -B stove -i auto -S ipv4
+# pot run casserole
+root@casserole:~ # ping 1.1.1.1
 [..]
-root@mypot:~ # exit
-# pot stop mypot
+root@casserole:~ # exit
+# pot stop casserole
 ```
 The `auto` keyword will automatically select an available address in the internal virtual network and it's the default value, hence the `-i` option can be omitted.
 
-Commands like `pot info -p mypot` and `potnet show -b mybridge` show the `pot` network configuration and the status of the bridge.
+Commands like `pot info -p casserole` and `potnet show -b stove` show the `pot` network configuration and the status of the bridge.
 
 If preferable, it's possible to assign a specific IP address to the `pot`:
 ```console
-# pot create -p mypot2 -t single -b 11.3 -N private-bridge -B mybridge -i 10.192.0.19
+# pot create -p casserole -t single -b 11.3 -N private-bridge -B stove -i 10.192.0.19
 ```
-`pot` will verify if the IP address is available and free to be used.
+`pot` will verify if the IP address is available, compatible with the selected bridge and free to be used.
 
 ## Export network services while using internal network
-Virtual networks are not visible outside the host machine, the bridges are masked outside via NAT.
 
-To make network services reachable from outside the TCP desired ports have to be exported/redirected.
+Depending on the adopted network type, network services needs an extra configuration step, in order to be reachable. In general, all network types that rely on NAT (`private-bridge` and `public-bridge` on IPv4) need to specify redirection rule make network services accessible from the host system
 
-The host port can be selected automatically or it can be provided by the user, depending on the needs.
+Network types like `inherit`, `alias` and `public-bridge` on IPv6 do not need any extra configuration, their network services are already ready to be used out of the box.
 
-`pot` provides a command to setup port redirection:
+The required redirection rule is automatically injected by `pot` if and when needed.
+
+`pot` provides a command to configure port redirection:
 ```console
-# pot export-ports -p mypot -e 80 -e 443
+# pot export-ports -p casserole -e 80:30080 -e 443:30443
+# pot start casserole
+# pot show -p casserole
+pot casserole
+	disk usage      : 266M
+	virtual memory  : 33M
+	physical memory : 17M
+
+	Network port redirection
+		192.168.178.20 port 30080 -> 10.192.0.11 port 80
+		192.168.178.20 port 30443 -> 10.192.0.11 port 443
 ```
-The `export-ports` command will mark ports 80 and 443 as exportable. When the `pot` starts, available ports will be identified and redirection rules will be automatically set up.
+
+If the user doesn't want to specify a port for the redirection, `pot` can choose a port at runtime:
+```console
+# pot export-ports -p casserole -e 80 -e 443
+```
 
 To know which port is used, you can use the `show` command:
 ```console
-# pot start mypot
-# pot show -p mypot
-pot mypot
+# pot start casserole
+# pot show -p casserole
+pot casserole
 	disk usage      : 274M
 	virtual memory  : 13M
 	physical memory : 4824K
@@ -216,20 +263,3 @@ pot mypot
 		192.168.178.20 port 1024 -> 10.192.0.3 port 80
 		192.168.178.20 port 1025 -> 10.192.0.3 port 443
 ```
-
-To map the network services to a specific port, instead of leaving the decision to `pot`, the following syntax can be used:
-```console
-# pot export-ports -p mypot -e 80:30080 -e 443:30443
-# pot start mypot
-# pot show -p mypot
-pot mypot
-	disk usage      : 266M
-	virtual memory  : 33M
-	physical memory : 17M
-
-	Network port redirection
-		192.168.178.20 port 30080 -> 10.192.0.11 port 80
-		192.168.178.20 port 30443 -> 10.192.0.11 port 443
-
-```
-
