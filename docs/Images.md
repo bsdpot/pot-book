@@ -108,15 +108,19 @@ Now we automate those commands in a flavour, called `nginx-test`.
 In the flavour folder we create one file for the `pot` configuration:
 ```console
 # cat /usr/local/etc/pot/flavours/nginx-test
-set-cmd -c "nginx -g 'daemon off;'"
 set-attribute -A no-rc-script -V YES
 set-attribute -A persistent -V NO
 set-rss -C 1
 ```
 
+The `set-cmd` command will be put in a different file, that we can call `nginx-test-cmd`:
+```console
+# cat /usr/local/etc/pot/flavours/nginx-test-cmd
+set-cmd -c "nginx -g 'daemon off;'"
+```
 The bootstrap script, that will be executed inside the jail, would look like this:
 ```console
-# chmode a+x /usr/local/etc/pot/flavours/nginx-test.sh
+# chmod a+x /usr/local/etc/pot/flavours/nginx-test.sh
 # cat /usr/local/etc/pot/flavours/nginx-test.sh
 #!/bin/sh
 
@@ -130,8 +134,12 @@ pkg clean -y
 
 The flavour `nginx-test` can now be used with the `create` command:
 ```console
-# pot create -p test-flavour -b 12.0 -N public-bridge -t single -f nginx-test
+# pot create -p test-flavour -b 12.0 -N public-bridge -t single -f nginx-test -f nginx-test-cmd
 ```
+
+!!! warning
+    To be correctly applied, flavours need a standard command. For this reason, it's a best practice to move the `set-cmd` command in a separated file, applied at the end
+
 
 An important note: while the bootstrap script is a shell script, where you can do whatever you want, the `pot` command usable in a flavour are a small subset:
 
