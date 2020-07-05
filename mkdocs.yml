@@ -28,9 +28,8 @@ theme:
   palette:
     primary: 'teal'
     accent: 'red'
-  icon:
-    logo: po-red.svg
   font: false
+  logo: pot-red.svg
   favicon: pot-red.svg
 extra:
   social:
