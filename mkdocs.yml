@@ -25,20 +25,20 @@ edit_uri: ''
 theme:
   name: 'material'
   feature:
-    tabs: false
   palette:
     primary: 'teal'
     accent: 'red'
-  logo: pot-red.svg
+  icon:
+    logo: po-red.svg
   font: false
   favicon: pot-red.svg
 extra:
   social:
-    - type: 'github'
+    - icon: fontawesome/brands/github-alt
       link: 'https://github.com/pizzamig'
-    - type: 'twitter'
+    - icon: fontawesome/brands/twitter
       link: 'https://twitter.com/pizzamig'
-    - type: 'linkedin'
+    - icon: fontawesome/brands/linkedin
       link: 'https://www.linkedin.com/in/pizzamiglio'
 markdown_extensions:
     - admonition
