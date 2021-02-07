@@ -289,13 +289,14 @@ When the `pot` starts, the host `/etc/resolv.conf` file is copied inside the `po
 
 ### DNS resolver: `off`
 
-This is value allows to disable any automatic configuration of the DNS resolver. It's up to the user to provide an appropriate `resolv.conf` file, with a pre-start hook or the `copy-in` command.
+++"0.11.5"++ This is value allows to disable any automatic configuration of the DNS resolver. It's up to the user to provide an appropriate `resolv.conf` file, with a pre-start hook or the `copy-in` command.
 ```console
 # pot create -p casserole -t single -b 12.2 -N inherit -d off
 ```
 
 ### DNS resolver: `custom:filename`
-This setup allows the user to provide a custom `resolv.conf` provided at creation time:
+
+++"0.12.0"++ This setup allows the user to provide a custom `resolv.conf` provided at creation time:
 ```console
 # pot create -p casserole -t single -b 12.2 -N inherit -d custom:myresolv.conf
 ```
@@ -316,4 +317,4 @@ In order to have this feature properly working, there are several requirements:
 * `pot`'s network types need to be compatible in order to be mutually reachable
 
 ??? note
-	With ++0.12.0++ the function to automatically create a DNS server in a `pot` has been removed, becuase of the maintenance burden and its very low adoption. However, the ability to autogenerate a `resolve.conf` is still avaliable
+	With ++"0.12.0"++ the function to automatically create a DNS server in a `pot` has been removed, becuase of the maintenance burden and its very low adoption. However, the ability to autogenerate a `resolve.conf` is still avaliable
