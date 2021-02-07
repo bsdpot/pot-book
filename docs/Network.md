@@ -1,12 +1,13 @@
 # Network configuration available for `pot`
 
-The creation phase of a `pot` sets its network configuration. 
-The two main network parameters are:
+The creation phase of a `pot` sets its network configuration.
+The three main network parameters are:
 
 * network stack
 * network type
+* DNS resolver
 
-Those two parameters, together with their more specific options, define the network setup of a `pot`.
+Those three parameters, together with their more specific options, define the network setup of a `pot`.
 
 ## Network stack
 ++"0.11.0"++ This parameter set the network stack that the `pot` can use.
@@ -37,12 +38,12 @@ By default, `inherit` is the chosen one.
 In the next sections, all network setups will be explained in details.
 
 ## Network configuration: inherit
-This network configuration means that the jail will use the same network stack of the hosting machine: the same IP address, the same network configuration.  
+This network configuration means that the jail will use the same network stack of the hosting machine: the same IP address, the same network configuration.
 The `inherit` network type is the default one, but it can be explicitly selected during the creation, with the command:
 ```console
-# pot create -p casserole4 -t single -b 11.3 -N inherit -S ipv4
-# pot create -p casserole6 -t single -b 11.3 -N inherit -S ipv6
-# pot create -p casserole -t single -b 11.3 -N inherit -S dual
+# pot create -p casserole4 -t single -b 12.2 -N inherit -S ipv4
+# pot create -p casserole6 -t single -b 12.2 -N inherit -S ipv6
+# pot create -p casserole -t single -b 12.2 -N inherit -S dual
 ```
 
 As explained in [Network stack](Network.md#netowrk-stack), `casserole4` inherits the network stack of the host, but only `ipv4` is allowed, `ipv6` is not usable. Similarly, `casserole6` inherits `ipv6` stack only, while `casserole` inherits the whole stack
@@ -56,10 +57,11 @@ If the host is in a network where static IPs can be assigned, one or more IPs ad
 
 ??? note
     Be sure that in the `pot` configuration file (`/usr/local/etc/pot/pot.conf`) you have correctly set the variable `POT_EXTIF`; this network interface is the one used by default to route the network traffic and to assign the IP address ([here](Installation.md#pot_extif-default-em0) more defails).
+	If your network interface has IPv4 multiple addressed, check the `POT_EXTIF_ADDR` configuration section ([here](Installation.md#pot_extif_addr-default-empty))
 
 Let's make a complex, but comprehensive example:
 ```console
-# pot create -p casserole -t single -b 11.3 -N alias -i "em0|2a00:1234:1234:1234::443" -i "em0|192.168.178.200" -i "2a00:1234:1234:1234::80" -S dual
+# pot create -p casserole -t single -b 12.2 -N alias -i "em0|2a00:1234:1234:1234::443" -i "em0|192.168.178.200" -i "2a00:1234:1234:1234::80" -S dual
 # pot start casserole
 # pot info -vp casserole
 # ifconfig
@@ -73,19 +75,19 @@ Let's explain the `create` command line:
 * `-i "2a00:1234:1234:1234::80"`: assign the IPv6 address `2a00:1234:1234:1234::80` to the default network interface, specified in the variable `POT_EXTIF`
 * `-S dual` : enable both IP stacks
 
-If `POT_EXTIF`'s value is `em0`, the network interface can be omitted. 
+If `POT_EXTIF`'s value is `em0`, the network interface can be omitted.
 
 To provide a bit of flexibility, it's possible to specify IP addresses of a stack, even if it's not used; those IPs will be just ignored. For instance:
 ```console
-# pot create -p casserole -t single -b 11.3 -N alias -i "em0|2a00:1234:1234:1234::443" -i "em0|192.168.178.200" -i "2a00:1234:1234:1234::80" -S ipv4
+# pot create -p casserole -t single -b 12.2 -N alias -i "em0|2a00:1234:1234:1234::443" -i "em0|192.168.178.200" -i "2a00:1234:1234:1234::80" -S ipv4
 ```
 
-The IPv6 addresses will be just ignored during `pot start`. 
+The IPv6 addresses will be just ignored during `pot start`.
 
 The command `pot stop` takes care to automatically remove the alias IP from the interface.
 
 ## Network configuration: public bridge virtual network
-Thanks to `VNET(9)`, `pot` supports an internal virtual network. 
+Thanks to `VNET(9)`, `pot` supports an internal virtual network.
 Let's start explaining few things:
 
 * bridge  : it's based on the pseudo network bridge device ([man page](https://www.freebsd.org/cgi/man.cgi?query=bridge&manpath=FreeBSD+12.1-RELEASE+and+Ports))
@@ -113,7 +115,7 @@ Network topology:
 	max addr: 10.255.255.255
 
 Addresses already taken:
-	10.192.0.0	
+	10.192.0.0
 	10.192.0.1	default gateway
 	10.192.0.2	dns
 ```
@@ -130,7 +132,7 @@ This command will create and configure the network interfaces properly and will 
 
 The following command creates a `pot` on the internal network:
 ```console
-# pot create -p casserole4 -t single -b 11.3 -N public-bridge -i auto -S ipv4
+# pot create -p casserole4 -t single -b 12.2 -N public-bridge -i auto -S ipv4
 # pot run casserole4
 root@casserole4:~ # ping 8.8.8.8
 [..]
@@ -143,7 +145,7 @@ Commands like `pot info -p casserole4` will show exactly which address has been 
 
 If preferable, it's possible to assign a specific IP address to the `pot`:
 ```console
-# pot create -p casserole4 -t single -b 11.3 -N public-bridge -i 10.192.0.10
+# pot create -p casserole4 -t single -b 12.2 -N public-bridge -i 10.192.0.10
 ```
 `pot` will verify if the IP address is available and free to be used.
 
@@ -159,7 +161,7 @@ If preferable, it's possible to assign a specific IP address to the `pot`:
 
 The following command creates a `pot` on the internal network:
 ```console
-# pot create -p casserole6 -t single -b 11.3 -N public-bridge -i auto -S ipv6
+# pot create -p casserole6 -t single -b 12.2 -N public-bridge -i auto -S ipv6
 # pot run casserole6
 root@casserole6:~ # ping6 2001:4860:4860::8888
 [..]
@@ -263,3 +265,55 @@ pot casserole
 		192.168.178.20 port 1024 -> 10.192.0.3 port 80
 		192.168.178.20 port 1025 -> 10.192.0.3 port 443
 ```
+
+## DNS resolver
+By default, when a `pot` is created, it's configured to inherit the DNS resolver configuration of the host, with the assumption that if it's working for the host, it should be good for the `pot` as well.
+
+However, there are many cases where users want to have a better control of the DNS resolver configuration of their `pot`. There are four possible configuration, usable at creation time:
+* `inherit`
+* `off`
+* `custom:filename`
+* `pot`
+
+### DNS resolver: `inherit`
+
+This is the default value:
+```console
+# pot create -p casserole -t single -b 12.2 -N inherit -d inherit
+```
+
+When the `pot` starts, the host `/etc/resolv.conf` file is copied inside the `pot` with the assumption that it's valid for both system, the host and the `pot`.
+
+??? attention
+	If your host is configured to use `unbound`, `inherit` is not usable for `public-bridge` and `private-bridge` network configuration, because `unbound` is listening only on the host's `lo0` interface
+
+### DNS resolver: `off`
+
+This is value allows to disable any automatic configuration of the DNS resolver. It's up to the user to provide an appropriate `resolv.conf` file, with a pre-start hook or the `copy-in` command.
+```console
+# pot create -p casserole -t single -b 12.2 -N inherit -d off
+```
+
+### DNS resolver: `custom:filename`
+This setup allows the user to provide a custom `resolv.conf` provided at creation time:
+```console
+# pot create -p casserole -t single -b 12.2 -N inherit -d custom:myresolv.conf
+```
+
+The file `myresolv.conf` will be copied as part of the `pot` configuration and it will be copied over as `/etc/resolv.conf` in the `pot` at start time.
+
+The user is fully responsible of the validity of the content of `myresolv.conf`, no validation is performed.
+
+### DNS resolver: `pot` [partially DEPRECATED]
+If the user has a `pot` acting as DNS server, this option can be used to automatically configure other `pot`s DNS resolver:
+```console
+# pot create -p casserole -t single -b 12.2 -N inherit -d pot
+```
+
+In order to have this feature properly working, there are several requirements:
+* the `pot` serving as DNS has to exist :)
+* variables `POT_DNS_NAME` and `POT_DNS_IP` has to be configured accordingly
+* `pot`'s network types need to be compatible in order to be mutually reachable
+
+??? note
+	With ++0.12.0++ the function to automatically create a DNS server in a `pot` has been removed, becuase of the maintenance burden and its very low adoption. However, the ability to autogenerate a `resolve.conf` is still avaliable

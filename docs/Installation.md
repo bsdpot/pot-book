@@ -75,8 +75,12 @@ In order to use network types like `alias`, `public-bridge` or `private-bridge`,
 Currently, `pot` assumes that all the network traffic is going through one physical network interface.
 This parameter configures `pot` to use the specified network interface.
 
+#### `POT_EXTIF_ADDR` (default empty)
+++"0.12.0"++ In case the `POT_EXTIF` has multiple addresses, `public-bridge` and `private-bridge` setup will use the first not alias IPv4 address for NAT and redirection.
+The parameter `POT_EXTIF_ADDR` can be used to specify which IPv4 address (assigned to `POT_EXTIF`) is the one to be used for NAT and redirection.
+
 #### `POT_NETWORK_STACK` (default `ipv4`)
-++"0.11.0"++ This parameter configures the network stack that a `pot` will set when created.  
+++"0.11.0"++ This parameter configures the network stack that a `pot` will set when created.
 There are three possible values
 
 * `ipv4` : all `pot`s will use IPv4 only
