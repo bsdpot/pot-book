@@ -1,4 +1,4 @@
-# `pot` installation guide 
+# `pot` installation guide
 
 This is a guide to prepare your FreeBSD installation to use the `pot` jail framework.
 
@@ -9,8 +9,8 @@ This is a guide to prepare your FreeBSD installation to use the `pot` jail frame
     ZFS is mandatory, so if you don't know what it is or you don't have a ZFS pool, please consider to read this [quick guide](https://www.freebsd.org/doc/handbook/zfs-quickstart.html).
 
 ## FreeBSD version
-`pot` is usually developed on CURRENT, but it's mainly tested and used on 12.1. 
-It should work also on 11.3, even if the kernel has to be rebuild, to activate `VNET(9)`, via the `VIMAGE` option.  
+`pot` is usually developed on CURRENT, but it's mainly tested and used on 12.1.
+It should work also on 11.3, even if the kernel has to be rebuild, to activate `VNET(9)`, via the `VIMAGE` option.
 If you want to use FreeBSD 11.3, please follow the instruction reported on the [handbook](https://www.freebsd.org/doc/handbook/kernelconfig.html) to build a custom kernel with the `VIMAGE` option enabled.
 
 ## Install `pot`
@@ -54,8 +54,8 @@ Under the folder `/usr/local/etc/pot` you'll find two files:
 * `pot.default.conf`
 * `pot.conf`
 
-The `pot.default.conf` contains all the default values and it shouldn't be touched.  
-All needed changes can be made in the `pot.conf` file. 
+The `pot.default.conf` contains all the default values and it shouldn't be touched.
+All needed changes can be made in the `pot.conf` file.
 This configuration file provide already a brief explanation for all parameters, but here we go deep, explaining them one by one
 
 ### File system parameters
@@ -98,7 +98,7 @@ Theoretically, the netmask can be derived from the `POT_NETWORK`. For now, this 
 This parameter specifies the IP address that will be used as default gateway in your internal virtual network. It has to be part of the network specified in `POT_NETWORK` and it will be used as default gateway for all `pot`s attached to the internal virtual network (`public-bridge` network type).
 
 #### `POT_EXTRA_EXTIF` (default empty)
-In case your host has multiple network interfaces connected to multiple network segments, this option allows your `pot`s to access those network segments.  
+In case your host has multiple network interfaces connected to multiple network segments, this option allows your `pot`s to access those network segments.
 For example, let's say that you have 2 vlan interfaces, called `vlan20` and `vlan30`.
 
 * `vlan20` is configured as 10.0.20.4/24
@@ -124,7 +124,7 @@ This command will show only the errors.
 ### Other parameters
 
 #### `POT_LOG_FACILITY` (default `local2`)
-++"0.10.4"++ Every time `pot` is invoked, its activity is logged via `syslogd(8)`.  
+++"0.10.4"++ Every time `pot` is invoked, its activity is logged via `syslogd(8)`.
 By default, the facility used is `local2`, but this parameter can be used to change it.
 
 ### Experimental parameters

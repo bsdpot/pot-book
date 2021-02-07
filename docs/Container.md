@@ -78,7 +78,7 @@ Swap: 4096M Total, 4096M Free
 
 # pot stop box
 ```
-The jail is still there, but it's empty, the initial command terminated. 
+The jail is still there, but it's empty, the initial command terminated.
 
 To automatically let the jail be destroyed when no processes are running, the `persistent` attribute can be used:
 ```console
@@ -93,26 +93,3 @@ Hello Cookware
 !!! warning
     Only the jail disappear automatically, everything else, like redirection rules, IP aliases, mounted filesystems, won't be cleaned up. For this reason, it's best practice to use `pot stop box` also for not persistent jails.
 	Also stop hooks won't be automatically executed.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

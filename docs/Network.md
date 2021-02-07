@@ -168,7 +168,7 @@ root@casserole6:~ # exit
 ```
 
 ## Network configuration: private bridge virtual network
-The public virtual network has the downside that all `pot`s share the same bridge, potentially affecting isolation or performance.  
+The public virtual network has the downside that all `pot`s share the same bridge, potentially affecting isolation or performance.
 To mitigate this issue, private virtual network has been introduced, but only IPv4 is supported.
 
 !!! warning
@@ -205,7 +205,7 @@ This command will create and configure the network interfaces properly and will 
 
 The following command will create a `pot` running on the private internal network:
 ```console
-# pot create -p casserole -t single -b 11.3 -N private-bridge -B stove -i auto -S ipv4
+# pot create -p casserole -t single -b 12.2 -N private-bridge -B stove -i auto -S ipv4
 # pot run casserole
 root@casserole:~ # ping 1.1.1.1
 [..]
@@ -218,7 +218,7 @@ Commands like `pot info -p casserole` and `potnet show -b stove` show the `pot` 
 
 If preferable, it's possible to assign a specific IP address to the `pot`:
 ```console
-# pot create -p casserole -t single -b 11.3 -N private-bridge -B stove -i 10.192.0.19
+# pot create -p casserole -t single -b 12.2 -N private-bridge -B stove -i 10.192.0.19
 ```
 `pot` will verify if the IP address is available, compatible with the selected bridge and free to be used.
 
