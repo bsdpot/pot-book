@@ -26,8 +26,9 @@ theme:
   name: 'material'
   feature:
   palette:
-    primary: 'teal'
-    accent: 'red'
+    - scheme: slate
+      primary: 'red'
+      accent: 'red'
   font: false
   logo: pot-red.svg
   favicon: pot-red.svg
