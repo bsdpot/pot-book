@@ -5,7 +5,7 @@ It's based on Material 5.x for MkDocs
 
 ### Requirements
 
-pkg install py37-pip python git
+pkg install py38-pip python git
 
 pip install mkdocs-material
 pip install mkdocs-minify-plugin
