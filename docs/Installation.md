@@ -7,6 +7,7 @@ This is a guide to prepare your FreeBSD installation to use the `pot` jail frame
 
 ??? note "ZFS"
     ZFS is mandatory, so if you don't know what it is or you don't have a ZFS pool, please consider to read this [quick guide](https://www.freebsd.org/doc/handbook/zfs-quickstart.html).
+    Ensure you have the ZFS service enabled in `/etc/rc.conf` `zfs_enable="YES"`.
 
 ## FreeBSD version
 `pot` is usually developed on CURRENT, but it's mainly tested and used on 12.1.
